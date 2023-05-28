@@ -1,4 +1,5 @@
 import json
+import os
 import pip
 from dataclasses import dataclass
 
@@ -63,7 +64,11 @@ for voice in voices:
     if voice.name == 'Microsoft Irina Desktop - Russian':
         tts.setProperty('voice', voice.id)
 
-model = vosk.Model('vosk-model-small-ru-0.22')
+try:
+    model = vosk.Model(next(filter(lambda file_folder: 'ru' in file_folder, os.listdir())))
+except StopIteration:
+    print('Установите модель русского языка с https://alphacephei.com/vosk/models')
+    exit()
 record = vosk.KaldiRecognizer(model, 16000)
 pa = pyaudio.PyAudio()
 stream = pa.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
