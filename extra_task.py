@@ -1,17 +1,10 @@
 import json
-import pip
 import webbrowser
 from dataclasses import dataclass
-from urllib.request import urlopen
 
 import pyaudio
 import pyttsx3
 import requests
-try:
-    import vlc
-except ImportError:
-    pip.main(['install', 'python-vlc'])
-    import vlc
 import vosk
 
 
