@@ -58,11 +58,7 @@ except ValueError:
 tts = pyttsx3.init('sapi5')
 voices = tts.getProperty('voices')
 tts.setProperty('voices', 'ru')
-
-for voice in voices:
-    print(voice.name)
-    if voice.name == 'Microsoft Irina Desktop - Russian':
-        tts.setProperty('voice', voice.id)
+tts.setProperty('voice', next(filter(lambda voice: 'ru' in voice.name.lower(), voices)).id)
 
 try:
     model = vosk.Model(next(filter(lambda file_folder: 'ru' in file_folder, os.listdir())))

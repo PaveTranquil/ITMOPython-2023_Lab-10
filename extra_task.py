@@ -41,12 +41,10 @@ def speak(say):
 
 tts = pyttsx3.init('sapi5')
 voices = tts.getProperty('voices')
-tts.setProperty('voices', 'ru')
-
-for voice in voices:
-    print(voice.name)
-    if voice.name == 'Microsoft David Desktop - English (United States)':
-        tts.setProperty('voice', voice.id)
+tts.setProperty('voices', 'en')
+tts.setProperty(
+    'voice', next(filter(lambda voice: voice.name == 'Microsoft David Desktop - English (United States)', voices)).id
+)
 
 try:
     model = vosk.Model(next(filter(lambda file_folder: 'en' in file_folder, os.listdir())))
